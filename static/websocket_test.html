@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste WebSocket - OpenWorld</title>
+</head>
+<body>
+    <h1>WebSocket - Jogador</h1>
+    <label for="player_id">ID do jogador:</label>
+    <input type="number" id="player_id" value="1">
+    <br><br>
+
+    <label for="message">Mensagem:</label>
+    <input type="text" id="message" placeholder="Digite sua mensagem">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <h3>Log:</h3>
+    <pre id="log"></pre>
+
+    <script>
+        let socket;
+
+        document.getElementById("player_id").addEventListener("change", connect);
+
+        function connect() {
+            const playerId = document.getElementById("player_id").value;
+            if (socket) {
+                socket.close();
+            }
+
+            socket = new WebSocket(`ws://localhost:8000/ws/${playerId}`);
+
+            socket.onopen = () => log("🔌 Conectado ao servidor!");
+            socket.onmessage = (event) => log("📩 " + event.data);
+            socket.onclose = () => log("❌ Conexão encerrada.");
+        }
+
+        function sendMessage() {
+            const message = document.getElementById("message").value;
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(message);
+                log("📤 Enviado: " + message);
+            } else {
+                log("⚠️ WebSocket não conectado.");
+            }
+        }
+
+        function log(message) {
+            const logBox = document.getElementById("log");
+            logBox.textContent += message + "\n";
+        }
+
+        // Conectar automaticamente com ID inicial
+        connect();
+    </script>
+</body>
+</html>

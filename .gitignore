@@ -1,0 +1,19 @@
+# venv
+venv/
+
+# arquivos de ambiente
+.env
+
+# arquivos do Python
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# arquivos de banco em cache (SQLite)
+*.db
+
+# outros
+.DS_Store
