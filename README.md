@@ -39,23 +39,15 @@ JWT_ALGORITHM=HS256
 🛠️ Como rodar o projeto
 Crie e ative um ambiente virtual:
 
-bash
-Copiar
-Editar
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate      # Windows
 Instale as dependências:
 
-bash
-Copiar
-Editar
+
 pip install -r requirements.txt
 Execute a API:
 
-bash
-Copiar
-Editar
 uvicorn main:app --reload
 Acesse em: http://localhost:8000/docs
 
